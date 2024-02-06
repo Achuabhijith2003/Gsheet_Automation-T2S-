@@ -139,29 +139,27 @@ final String range = "Form Responses 1!A:E";
     //--------/Score------
     return "";
    }
-  //  boolean checksaved(String oldname) throws IOException, GeneralSecurityException{
+   boolean checksaved(String oldname) throws IOException, GeneralSecurityException{
     
-  //   while (true) {
-  //     if (oldname!=gsheetdata()) {
-  //       return false;
-  //     }else{
-  //       return true;
-  //     }
-  //   }
-  //  }
+    while (true) {
+      if (oldname!=gsheetdata()) {
+        return false;
+      }else{
+        return true;
+      }
+    }
+   }
 
   public static void main(String[] args) throws IOException, GeneralSecurityException {
     Gsheet_read gsheet= new Gsheet_read();
     String  name=gsheet.gsheetdata();
-    boolean run=true;
-    System.out.println("Helo "+gsheet.gsheetdata());
-    // while (true) {
-    //   boolean run =gsheet.checksaved(name);
-    //   while (run) {
-    //     System.out.println("Helo "+name);
-    //     run=gsheet.checksaved(name);
-    //   }
-    // }
+    while (true) {
+      boolean run =gsheet.checksaved(name);
+      while (run) {
+        System.out.println("Helo "+name);
+        run=gsheet.checksaved(name);
+      }
+    }
     
     
     
