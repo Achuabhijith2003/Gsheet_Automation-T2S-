@@ -3,7 +3,7 @@ package excelt2s;
 // Java code to convert text to speech 
 
 import java.util.Locale; 
-import javax.speech.Central; 
+import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer; 
 import javax.speech.synthesis.SynthesizerModeDesc;
 
@@ -45,7 +45,7 @@ public class Text2Speech {
 				Synthesizer.QUEUE_EMPTY); 
 
 			// Deallocate the Synthesizer. 
-			synthesizer.deallocate(); 
+			//synthesizer.deallocate(); 
 		} 
 
 		catch (Exception e) { 

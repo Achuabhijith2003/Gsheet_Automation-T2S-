@@ -12,9 +12,8 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
-import com.google.api.services.sheets.v4.model.SheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
-import com.google.common.collect.Table.Cell;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class Gsheet_read {
+public class Gsheet_read extends Thread{
 
 
   private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
@@ -97,7 +96,7 @@ final String range = "Form Responses 1!A:B";
       ValueRange response = service.spreadsheets().values()
           .get(spreadsheetId, range)
           .execute();
-          int numRows = response.getValues() != null ? response.getValues().size() : 0;
+         // int numRows = response.getValues() != null ? response.getValues().size() : 0;
 
 // Get the last row number
 
@@ -110,7 +109,7 @@ final String range = "Form Responses 1!A:B";
        // System.out.println("Name, Major");
        Object value;
        
-       for (List row : values) {
+       for (@SuppressWarnings("rawtypes") List row : values) {
         for (int i = 0; i < row.size(); i++) {
             value = row.get(i);
             if (value != null && (i == 0 || i == 4)) { // Print only columns A and E
@@ -126,7 +125,7 @@ final String range = "Form Responses 1!A:B";
       }
       
     } catch (Exception e) {
-      // TODO: handle exception
+     
       System.err.println("No internet");
       System.err.println(e);
       return "Error";
@@ -141,9 +140,9 @@ final String range = "Form Responses 1!A:B";
     //--------/Score------
     return "";
    }
-  
+  // Method for check the gheeet is update
   String []name=new String[2];
-   boolean checksaved() throws IOException, GeneralSecurityException{
+   boolean checksaved()  throws IOException, GeneralSecurityException {
    
       if (name[0].equals(name[1])) {
         //  System.out.println(name[1]+" is already saved as "+name[0]); 
@@ -155,18 +154,43 @@ final String range = "Form Responses 1!A:B";
            return true;
       }
     }
-  public static void main(String[] args) throws IOException, GeneralSecurityException {
-    Text2Speech t2s=new Text2Speech();
-    Gsheet_read gsheet= new Gsheet_read();
-    gsheet.name[0]="gsheet.gsheetdata()";
-    
-    while (true) {
-      gsheet.name[1]=gsheet.gsheetdata();
-      while (gsheet.checksaved()) {
-        System.out.println(gsheet.gsheetdata());
-        t2s.speak(gsheet.gsheetdata());
+
+    @Override
+    public void run()  {
+      // TODO Auto-generated method stub
+      Text2Speech t2s=new Text2Speech();
+      Gsheet_read gsheet= new Gsheet_read();
+      gsheet.name[0]="gsheet.gsheetdata()";
+      while (true) {
+        
+        try {
+          Thread.sleep(5000);
+          gsheet.name[1]=gsheet.gsheetdata();
+        } catch (IOException | GeneralSecurityException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        try {
+          while (gsheet.checksaved()) {
+            System.out.println(gsheet.gsheetdata());
+            t2s.speak(gsheet.gsheetdata());
+            Thread.sleep(500);
+          }
+        } catch (IOException | GeneralSecurityException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     }
+  public static void main(String[] args)  {
+    Gsheet_read gsheet= new Gsheet_read();
+    gsheet.start();
     
   }
 }
