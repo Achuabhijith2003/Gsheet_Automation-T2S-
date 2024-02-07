@@ -81,6 +81,7 @@ public class Gsheet_read {
           new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
               .setApplicationName(APPLICATION_NAME)
               .build();
+              
                //
           //
           // ... (Authentication and connection setup)
@@ -90,7 +91,7 @@ public class Gsheet_read {
 //
 //----- Name---------------
 
-final String range = "Form Responses 1!A:E";
+final String range = "Form Responses 1!A:B";
 
       ValueRange response = service.spreadsheets().values()
           .get(spreadsheetId, range)
@@ -139,29 +140,29 @@ final String range = "Form Responses 1!A:E";
     //--------/Score------
     return "";
    }
-   boolean checksaved(String oldname) throws IOException, GeneralSecurityException{
-    
-    while (true) {
-      if (oldname!=gsheetdata()) {
+  
+  String []name=new String[2];
+   boolean checksaved() throws IOException, GeneralSecurityException{
+   
+      if (name[0].equals(name[1])) {
+        //  System.out.println(name[1]+" is already saved as "+name[0]); 
         return false;
       }else{
-        return true;
+      
+        name[0]=name[1];
+        //  System.out.println(name[1]+" is already saved as "+name[0]);
+           return true;
       }
     }
-   }
-
   public static void main(String[] args) throws IOException, GeneralSecurityException {
     Gsheet_read gsheet= new Gsheet_read();
-    String  name=gsheet.gsheetdata();
+    gsheet.name[0]="gsheet.gsheetdata()";
     while (true) {
-      boolean run =gsheet.checksaved(name);
-      while (run) {
-        System.out.println("Helo "+name);
-        run=gsheet.checksaved(name);
+      gsheet.name[1]=gsheet.gsheetdata();
+      while (gsheet.checksaved()) {
+        System.out.println(gsheet.gsheetdata());
       }
     }
-    
-    
-    
+
   }
 }
