@@ -3,7 +3,7 @@
     
         "java.project.referencedLibraries": [
             "lib/**/*.jar",
-            "C:\\Users\\JR\\Downloads\\freetts-1.2.2-bin\\freetts-1.2\\lib\\jsapi.jar"
+            "C:\\Users\\JR\\Downloads\\freetts-1.2.2-bin\\freetts-1.2\\lib\\"
         ]
     
 }

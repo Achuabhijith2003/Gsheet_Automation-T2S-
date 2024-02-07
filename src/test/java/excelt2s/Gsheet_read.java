@@ -24,6 +24,7 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
+
 public class Gsheet_read {
 
 
@@ -155,14 +156,17 @@ final String range = "Form Responses 1!A:B";
       }
     }
   public static void main(String[] args) throws IOException, GeneralSecurityException {
+    Text2Speech t2s=new Text2Speech();
     Gsheet_read gsheet= new Gsheet_read();
     gsheet.name[0]="gsheet.gsheetdata()";
+    
     while (true) {
       gsheet.name[1]=gsheet.gsheetdata();
       while (gsheet.checksaved()) {
         System.out.println(gsheet.gsheetdata());
+        t2s.speak(gsheet.gsheetdata());
       }
     }
-
+    
   }
 }
